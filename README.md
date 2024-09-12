@@ -7,9 +7,13 @@ Some infos here about krc20, layer 2, high load on kaspa especially at start
 
 ## What changed in Kaspa in the last weeks
 
-### Dust prevention KIP-0009
+### Dust prevention KIP-0009 and the storage mass
 To prevent a UTXO bloat attack, the KIP-0009 was created and implemented. Dust prevention primarily kicks in when sending very small amounts or a high amount of outputs. This significantly increases the transaction mass. As a result, higher fees are required.
 Please check the demo script to calculate the TX mass.
+
+**rough-and-ready rule 1:** The storage mass is only dependent from the count and the values of the TX's inputs and outputs \
+**rough-and-ready rule 2:** Don't use outputs lower than 0.2 KAS, as this increases the TX mass significantly
+ 
 
 ### Fee Estimate
 As blocks become increasingly full with the start of KRC20, miners may need to prioritize transactions, meaning those with lower fees could remain in the mempool longer. 
