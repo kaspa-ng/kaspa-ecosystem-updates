@@ -23,7 +23,3 @@ Fee info from node:
     Priority fee for this TX: 3695 Sompi
     Normal fee for this TX: 3695 Sompi
     Low fee for this TX: 3695 Sompi
-
-#
-
-    Fee paid for this TX: 100000 Sompis / 0.001 KAS

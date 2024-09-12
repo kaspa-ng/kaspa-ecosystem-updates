@@ -117,6 +117,3 @@ print(f'\nFee info from node: {fee_info_from_node}')
 print(f'\nPriority fee for this TX: {tx_mass * fee_info_from_node["priorityBucket"]["feerate"]} Sompi')
 print(f'Normal fee for this TX: {tx_mass * fee_info_from_node["normalBuckets"][0]["feerate"]} Sompi')
 print(f'Low fee for this TX: {tx_mass * fee_info_from_node["lowBuckets"][0]["feerate"]} Sompi')
-
-fee = sum(inputs) - sum(outputs)
-print(f'\n\nFee paid for this TX: {fee} Sompis / {fee / 1_0000_0000} KAS')
