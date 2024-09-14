@@ -45,7 +45,7 @@ that the network was not functioning.
 ### Dust prevention KIP-0009 and the storage mass
 
 To prevent a UTXO bloat attack, the KIP-0009 was created and implemented. Dust prevention primarily kicks in when
-sending very small amounts or a high amount of outputs. This significantly increases the transaction mass. As a result,
+sending very small amounts (in KAS) or a high count of outputs. This significantly increases the transaction mass. As a result,
 higher fees are required.
 Please check the demo script to calculate the TX mass.
 
