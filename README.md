@@ -111,78 +111,78 @@ Feel free to use our docker-compose set
 ### testnet 10
 
 ```yaml
-  services:
-    kaspa_rest_server_t10:
-      container_name: kaspa_rest_server_t10
-      image: kaspanet/kaspa-rest-server:latest
-      restart: unless-stopped
-      deploy:
-        resources:
-          limits:
-            cpus: "2"
-            memory: 1G
-      environment:
-        KASPAD_HOST_1: kaspad_t10:16210
-        SQL_URI: postgresql+asyncpg://postgres:thisIsMYsecretAndNotyours@kaspa_db_t10:5432/postgres
-        DISABLE_PRICE: "true"
-        NETWORK_TYPE: "testnet"
-      ports:
-        - "8100:8000"
-      command: pipenv run gunicorn -b 0.0.0.0:8000 -w 2 -k uvicorn.workers.UvicornWorker main:app --timeout 120
-      links:
-        - kaspad_t10
-        - kaspa_db_t10
-  
-    kaspa_db_filler_t10:
-      container_name: kaspa_db_filler_t10
-      image: supertypo/kaspa-db-filler-ng:latest
-      restart: unless-stopped
-      deploy:
-        resources:
-          limits:
-            cpus: "2"
-            memory: 2G
-      command: -u -b 1 -n testnet-10 -s ws://kaspad_t10:17210 -d postgres://postgres:thisIsMYsecretAndNotyours@kaspa_db_t10:5432/postgres
-      links:
-        - kaspad_t10
-        - kaspa_db_t10
-  
-    kaspad_t10:
-      container_name: kaspad_t10
-      image: supertypo/rusty-kaspad:latest
-      restart: unless-stopped
-      environment:
-       NETWORK_TYPE: testnet
-      ports:
-        - "16211:16211"
-        - "16210:16210"
-        - "17210:17210"
-      volumes:
-        - kaspad_t10:/app/data/
-      command: kaspad --yes --unsaferpc --ram-scale=0.3 --testnet --utxoindex --rpclisten=0.0.0.0:16210 --rpclisten-borsh=0.0.0.0:17210 --nologfiles --disable-upnp
-  
-    kaspa_db_t10:
-      container_name: kaspa_db_t10
-      image: postgres:16-alpine
-      restart: unless-stopped
-      shm_size: 1gb
-      environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: thisIsMYsecretAndNotyours
-        POSTGRES_DB: postgres
-      ports:
-        - "65433:5432"
-      deploy:
-        resources:
-          limits:
-            cpus: "2"
-            memory: 2G
-      volumes:
-        - kaspa_db_t10:/var/lib/postgresql/data/
-  
-  volumes:
-    kaspad_t10:
-    kaspa_db_t10:
+services:
+  kaspa_rest_server_t10:
+    container_name: kaspa_rest_server_t10
+    image: kaspanet/kaspa-rest-server:latest
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 1G
+    environment:
+      KASPAD_HOST_1: kaspad_t10:16210
+      SQL_URI: postgresql+asyncpg://postgres:thisIsMYsecretAndNotyours@kaspa_db_t10:5432/postgres
+      DISABLE_PRICE: "true"
+      NETWORK_TYPE: "testnet"
+    ports:
+      - "8100:8000"
+    command: pipenv run gunicorn -b 0.0.0.0:8000 -w 2 -k uvicorn.workers.UvicornWorker main:app --timeout 120
+    links:
+      - kaspad_t10
+      - kaspa_db_t10
+
+  kaspa_db_filler_t10:
+    container_name: kaspa_db_filler_t10
+    image: supertypo/kaspa-db-filler-ng:latest
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+    command: -u -b 1 -n testnet-10 -s ws://kaspad_t10:17210 -d postgres://postgres:thisIsMYsecretAndNotyours@kaspa_db_t10:5432/postgres
+    links:
+      - kaspad_t10
+      - kaspa_db_t10
+
+  kaspad_t10:
+    container_name: kaspad_t10
+    image: supertypo/rusty-kaspad:latest
+    restart: unless-stopped
+    environment:
+     NETWORK_TYPE: testnet
+    ports:
+      - "16211:16211"
+      - "16210:16210"
+      - "17210:17210"
+    volumes:
+      - kaspad_t10:/app/data/
+    command: kaspad --yes --unsaferpc --ram-scale=0.3 --testnet --utxoindex --rpclisten=0.0.0.0:16210 --rpclisten-borsh=0.0.0.0:17210 --nologfiles --disable-upnp
+
+  kaspa_db_t10:
+    container_name: kaspa_db_t10
+    image: postgres:16-alpine
+    restart: unless-stopped
+    shm_size: 1gb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: thisIsMYsecretAndNotyours
+      POSTGRES_DB: postgres
+    ports:
+      - "65433:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+    volumes:
+      - kaspa_db_t10:/var/lib/postgresql/data/
+
+volumes:
+  kaspad_t10:
+  kaspa_db_t10:
 ```
 
 ### mainnet
@@ -204,7 +204,7 @@ services:
       DISABLE_PRICE: "true"
       NETWORK_TYPE: "testnet"
     ports:
-      - "8000:8000"
+      - "80:8000"
     command: pipenv run gunicorn -b 0.0.0.0:8000 -w 2 -k uvicorn.workers.UvicornWorker main:app --timeout 120
     links:
       - kaspad_mainnet
@@ -236,7 +236,7 @@ services:
       - "17110:17110"
     volumes:
       - kaspad_mainnet:/app/data/
-    command: kaspad --yes --unsaferpc --ram-scale=0.3 --testnet --utxoindex --rpclisten=0.0.0.0:16210 --rpclisten-borsh=0.0.0.0:17210 --nologfiles --disable-upnp
+    command: kaspad --yes --unsaferpc --ram-scale=0.3 --utxoindex --rpclisten=0.0.0.0:16110 --rpclisten-borsh=0.0.0.0:17110 --nologfiles --disable-upnp
 
   kaspa_db_mainnet:
     container_name: kaspa_db_mainnet
