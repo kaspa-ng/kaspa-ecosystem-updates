@@ -152,7 +152,7 @@ services:
     image: supertypo/rusty-kaspad:latest
     restart: unless-stopped
     environment:
-     NETWORK_TYPE: testnet
+      NETWORK_TYPE: testnet
     ports:
       - "16211:16211"
       - "16210:16210"
