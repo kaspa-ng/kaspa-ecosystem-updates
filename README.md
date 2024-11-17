@@ -152,7 +152,7 @@ services:
     image: supertypo/rusty-kaspad:latest
     restart: unless-stopped
     environment:
-     NETWORK_TYPE: testnet
+      NETWORK_TYPE: testnet
     ports:
       - "16211:16211"
       - "16210:16210"
@@ -202,7 +202,7 @@ services:
       KASPAD_HOST_1: kaspad_mainnet:16110
       SQL_URI: postgresql+asyncpg://postgres:thisIsMYsecretAndNotyours@kaspa_db_mainnet:5432/postgres
       DISABLE_PRICE: "true"
-      NETWORK_TYPE: "testnet"
+      NETWORK_TYPE: "mainnet"
     ports:
       - "80:8000"
     command: pipenv run gunicorn -b 0.0.0.0:8000 -w 2 -k uvicorn.workers.UvicornWorker main:app --timeout 120
